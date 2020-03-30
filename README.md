@@ -2,7 +2,7 @@
 
 ## About this repo Laravel
 
-This repo its only for template to my projects. If you want a laravel default, please, check at laravel doc (Above).
+This repo its a study and test about "Laravel Movie App - Styling w/ Tailwind CSS" by Andre Madarang, please, visit his website: http://andremadarang.com
 
 ## Learning Laravel
 
