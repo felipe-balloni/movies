@@ -1,3 +1,5 @@
+![PHP Composer](https://github.com/felipe-balloni/laravel7/workflows/PHP%20Composer/badge.svg)
+
 ## About this repo Laravel
 
 This repo its only for template to my projects. If you want a laravel default, please, check at laravel doc (Above).
