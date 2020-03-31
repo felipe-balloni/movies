@@ -1,4 +1,5 @@
 ![PHP Composer](https://github.com/felipe-balloni/laravel7/workflows/PHP%20Composer/badge.svg)
+![Node.js CI](https://github.com/felipe-balloni/movies/workflows/Node.js%20CI/badge.svg)
 
 ## About this repo Laravel
 
