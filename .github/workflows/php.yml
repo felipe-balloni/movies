@@ -25,14 +25,5 @@ jobs:
 
     # - name: Run test suite
     #   run: composer run-script test
-
-    - name: Run artisan complement
-      run: php artisan web-tinker:install && php artisan vendor:publish --provider="Spatie\WebTinker\WebTinkerServiceProvider" --tag="config" && php artisan vendor:publish --provider="Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider" --tag=config && php artisan ide-helper:eloquent
-
-    - name: Run Atuh Scafolding
-      run: php artisan ui bootstrap --auth
-      
-    - name: NPM 
-      run: npm install && npm run dev && npm run dev
       
       
