@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Movie;
-use Eloquent;
-use Illuminate\Http\Request;
+use App\ViewModels\MoviesViewModel;
+use App\ViewModels\MovieViewModel;
 use Illuminate\Support\Facades\Http;
 
 class MoviesController extends Controller
@@ -21,7 +20,7 @@ class MoviesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -34,28 +33,28 @@ class MoviesController extends Controller
             ->get('https://api.themoviedb.org/3/movie/now_playing?language=' . config('app.locale') . '&page=' . $this->page . '&region=' . $this->region)
             ->json()['results'];;
 
-        $genresMovies = Http::withToken(config('services.tmdb.token'))
-            ->get('https://api.themoviedb.org/3/genre/movie/list?language=' . config('app.locale'))
-            ->json();
+        $genres = Http::withToken(config('services.tmdb.token'))
+            ->get('https://api.themoviedb.org/3/genre/movie/list')
+            ->json()['genres'];
 
-        $genres = collect($genresMovies['genres'])->mapWithKeys(function ($genre) {
-            return [$genre['id'] => $genre['name']];
-        });
+        $viewModel = new MoviesViewModel(
+            $popularMovies,
+            $nowPlayingMovies,
+            $genres
+        );
 
-//         dump($popular);
-
-        return view('index', compact('popularMovies', 'nowPlayingMovies', 'genres'));
+        return view('index', $viewModel);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
-        $detailsMovie = Http::withToken(config('services.tmdb.token'))
+        $movie = Http::withToken(config('services.tmdb.token'))
             ->get('https://api.themoviedb.org/3/movie/'
                 . $id
                 . '?language=' . config('app.locale')
@@ -64,22 +63,9 @@ class MoviesController extends Controller
             )
             ->json();
 
-        $movie = collect($detailsMovie);
-        $crews = collect($detailsMovie['credits']['crew'])
-            ->filter(function ($crew) {
-                return $crew['job'] == 'Director' or $crew['job'] == 'Screenplay';
-            }
-            )->groupBy('name');
+        $viewModel = new MovieViewModel($movie);
 
-        $jobs = $crews->groupBy('name')->transform(function ($item, $key) {
-            return $item->groupBy($key);
-        });
-
-//         dd($crews, $jobs);
-
-//         dump($movie, $crews, $jobs);
-
-        return view('show', compact('movie', 'crews', 'jobs'));
+        return view('show', $viewModel);
     }
 
 }
