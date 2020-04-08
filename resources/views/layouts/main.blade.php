@@ -83,7 +83,7 @@
                 <livewire:search-dropdown>
                     <div class="md:ml-4 mt-3 md:mt-0">
                         <a href="#">
-                            <img src="{{ asset('img/avatar.jpg') }}" alt="avatar" class=" rounded-full w-8 h-8">
+                            <img src="{{ asset('img/avatar.png') }}" alt="avatar" class=" rounded-full w-8 h-8">
                         </a>
                     </div>
             </div>
@@ -96,7 +96,7 @@
     <footer class="font-sans bg-gray-900 text-white">
         <div class="border-t border-gray-800">
             <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 py-2">
-                {{ __('All this content are property of The Movie DB')}}
+                {{ __('All this contents are property of The Movie DB')}}
                 <div class="flex flex-col md:flex-row items-center">
                     <a href="https://www.themoviedb.org" target="blank">
                         <svg class="w-48" viewBox="0 0 489.04 35.4">
