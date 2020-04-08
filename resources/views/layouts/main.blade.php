@@ -15,9 +15,9 @@
 {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
 
 <!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    @livewireStyles
+    <livewire:styles>
     @yield('custom-styles')
 
 </head>
@@ -81,11 +81,11 @@
             </ul>
             <div class="flex flex-col md:flex-row items-center">
                 <livewire:search-dropdown>
-                <div class="md:ml-4 mt-3 md:mt-0">
-                    <a href="#">
-                        <img src="{{ asset('img/avatar.jpg') }}" alt="avatar" class=" rounded-full w-8 h-8">
-                    </a>
-                </div>
+                    <div class="md:ml-4 mt-3 md:mt-0">
+                        <a href="#">
+                            <img src="{{ asset('img/avatar.jpg') }}" alt="avatar" class=" rounded-full w-8 h-8">
+                        </a>
+                    </div>
             </div>
         </div>
     </nav>
@@ -133,7 +133,7 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>
-@livewireScripts
+<livewire:scripts>
 @yield('custom-scripts')
 
 </body>

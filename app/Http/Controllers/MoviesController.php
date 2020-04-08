@@ -28,14 +28,11 @@ class MoviesController extends Controller
 
         $popularMovies = Http::withToken(config('services.tmdb.token'))
             ->get('https://api.themoviedb.org/3/movie/popular?language=' . config('app.locale') . '&page=' . $this->page . '&region=' . $this->region)
-            ->json();
+            ->json()['results'];
 
-        $nowplayingMovies = Http::withToken(config('services.tmdb.token'))
+        $nowPlayingMovies = Http::withToken(config('services.tmdb.token'))
             ->get('https://api.themoviedb.org/3/movie/now_playing?language=' . config('app.locale') . '&page=' . $this->page . '&region=' . $this->region)
-            ->json();
-
-        $popular = Movie::hydrate($popularMovies['results']);
-        $nowplaying = Movie::hydrate($nowplayingMovies['results']);
+            ->json()['results'];;
 
         $genresMovies = Http::withToken(config('services.tmdb.token'))
             ->get('https://api.themoviedb.org/3/genre/movie/list?language=' . config('app.locale'))
@@ -45,42 +42,42 @@ class MoviesController extends Controller
             return [$genre['id'] => $genre['name']];
         });
 
-        // dump($popular, $genres);
+//         dump($popular);
 
-        return view('index', compact('popular', 'nowplaying', 'genres'));
+        return view('index', compact('popularMovies', 'nowPlayingMovies', 'genres'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $detailsMovie = Http::withToken(config('services.tmdb.token'))
             ->get('https://api.themoviedb.org/3/movie/'
-                    . $id
-                    . '?language=' . config('app.locale')
-                    . '&append_to_response=videos,credits,images'
-                    . '&include_image_language=en,null,' . config('app.locale')
-                )
+                . $id
+                . '?language=' . config('app.locale')
+                . '&append_to_response=videos,credits,images'
+                . '&include_image_language=en,null,' . config('app.locale')
+            )
             ->json();
 
         $movie = collect($detailsMovie);
         $crews = collect($detailsMovie['credits']['crew'])
-            ->filter( function ($crew) {
+            ->filter(function ($crew) {
                 return $crew['job'] == 'Director' or $crew['job'] == 'Screenplay';
             }
-        )->groupBy('name');
+            )->groupBy('name');
 
-        $jobs = $crews->groupBy('name')->transform(function($item, $key) {
+        $jobs = $crews->groupBy('name')->transform(function ($item, $key) {
             return $item->groupBy($key);
         });
 
-        // dd($crews, $jobs);
+//         dd($crews, $jobs);
 
-        // dump($movie, $crews, $jobs);
+//         dump($movie, $crews, $jobs);
 
         return view('show', compact('movie', 'crews', 'jobs'));
     }
