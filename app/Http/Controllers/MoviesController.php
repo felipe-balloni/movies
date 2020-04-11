@@ -10,11 +10,13 @@ class MoviesController extends Controller
 {
     protected $page;
     protected $region;
+    protected $token;
 
     public function __construct()
     {
         $this->page = 1;
         $this->region = 'BR';
+        $this->token = config('services.tmdb.token');
     }
 
     /**
@@ -24,17 +26,19 @@ class MoviesController extends Controller
      */
     public function index()
     {
-
-        $popularMovies = Http::withToken(config('services.tmdb.token'))
+        $popularMovies = Http::withToken($this->token)
             ->get('https://api.themoviedb.org/3/movie/popular?language=' . config('app.locale') . '&page=' . $this->page . '&region=' . $this->region)
+            ->throw()
             ->json()['results'];
 
-        $nowPlayingMovies = Http::withToken(config('services.tmdb.token'))
+        $nowPlayingMovies = Http::withToken($this->token)
             ->get('https://api.themoviedb.org/3/movie/now_playing?language=' . config('app.locale') . '&page=' . $this->page . '&region=' . $this->region)
-            ->json()['results'];;
+            ->throw()
+            ->json()['results'];
 
-        $genres = Http::withToken(config('services.tmdb.token'))
-            ->get('https://api.themoviedb.org/3/genre/movie/list')
+        $genres = Http::withToken($this->token)
+            ->get('https://api.themoviedb.org/3/genre/movie/list?language=' . config('app.locale'))
+            ->throw()
             ->json()['genres'];
 
         $viewModel = new MoviesViewModel(

@@ -15,9 +15,8 @@
 {{-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
 
 <!-- Styles -->
-{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    <livewire:styles>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @livewireStyles
     @yield('custom-styles')
 
 </head>
@@ -133,7 +132,7 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>
-<livewire:scripts>
+@livewireScripts
 @yield('custom-scripts')
 
 </body>
