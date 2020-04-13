@@ -6,11 +6,9 @@
         <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
             <img src="{{ $movie['poster_path'] }}"
                  alt="poster"
-                 class="rounded-lg shadow-md transition duration-500 ease-in-out transform hover:scale-105 w-64 lg:w-96">
+                 class="img-fx-1 w-64 lg:w-96">
             <div class="md:ml-24">
-                <h2 class=" text-4xl font-semibold">
-                    {{ $movie['title'] }}
-                </h2>
+                <h2>{{ $movie['title'] }}</h2>
                 <div class="flex flex-wrap items-center text-gray-400 text-sm">
                     <span>
                         <svg class="fill-current text-orange-500 w-4" viewBox="0 0 24 24">
@@ -97,7 +95,7 @@
     <!-- start movie-cast -->
     <div class="movie-cast border-b border-gray-800">
         <div class="container mx-auto px-4 py-16">
-            <h2 class=" text-4xl font-semibold">{{ __('Cast') }}</h2>
+            <h2>{{ __('Cast') }}</h2>
             @if ($movie['credits']['cast'])
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-10 gap-8">
                     @foreach ($movie['cast'] as $cast)
@@ -105,7 +103,7 @@
                             <a href="#">
                                 <img src="{{ $cast['profile_path'] }}"
                                      alt="{{ $cast['name'] }}"
-                                     class="rounded-lg hover:opacity-75 duration-300 shadow-md transition ease-in-out transform hover:scale-105 w-24 lg:w-32">
+                                     class="img-fx-1 w-24 lg:w-32">
                             </a>
                             <div class="mt-2">
                                 <a href="#" class="text-lg mt-2 hover:text-gray:300">{{ $cast['name'] }}</a>
@@ -123,7 +121,7 @@
     <!-- start movie-images -->
     <div class="movie-images" x-data="{ isOpen: false, image: ''}">
         <div class="container mx-auto px-4 py-16">
-            <h2 class="text-4xl font-semibold">Images</h2>
+            <h2>Images</h2>
             @if ($movie['images'])
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                     @foreach ($movie['images'] as $image)
@@ -136,7 +134,7 @@
                                 href="#"
                             >
                                 <img src="{{ 'https://image.tmdb.org/t/p/w500/'.$image['file_path'] }}" alt="image1"
-                                     class="rounded-lg hover:opacity-75 duration-300 shadow-md transition ease-in-out transform hover:scale-105">
+                                     class="img-fx-1">
                             </a>
                         </div>
                     @endforeach

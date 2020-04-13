@@ -1,10 +1,9 @@
 <div class="mt-8">
     <a href="{{ route('movie.show', $movie['id'] ) }}">
-            <img src="{{ $movie['poster_path'] }}" alt="poster"
-                 class="hover:opacity-50 transition ease-in-out duration-300 rounded-lg shadow-md">
-{{--            <img src="https://via.placeholder.com/500x750.png?text={{ __('No image') }}" alt="no image" class="hover:opacity-50 transition ease-in-out duration-300 rounded-lg shadow-md">--}}
+            <img alt="poster" class="movies-image lazyload"
+                 src="{{ $movie['poster_path'] }}">
     </a>
-    <a href="{{ route('movie.show', $movie['id'] ) }}" class="text-lg mt-2 hover:text-gray-300">{{ $movie['title'] }}</a>
+    <a href="{{ route('movie.show', $movie['id'] ) }}">{{ $movie['title'] }}</a>
     <div class="flex items-center text-gray-400 text-sm mt-1">
         <span>
             <svg class="fill-current text-orange-500 w-4" viewBox="0 0 24 24">

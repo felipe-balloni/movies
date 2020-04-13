@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
-const tailwindcss = require('tailwindcss')
+const tailwindcss = require('tailwindcss');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -14,19 +15,23 @@ const tailwindcss = require('tailwindcss')
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    // .options({
-    //     processCssUrls: false,
-    //     postCss: [tailwindcss('tailwind.config.js')],
-    // })
-    .postCss('resources/css/main.css', 'public/css', [
-        require('tailwindcss'),
-    ])
+    .options({
+        processCssUrls: false,
+        postCss: [ tailwindcss('./tailwind.config.js') ]
+    })
+    .purgeCss({
+        enabled: mix.inProduction(),
+        folders: ['src', 'templates'],
+        extensions: ['html', 'js', 'php', 'vue'],
+    });
 
 if (mix.inProduction()) {
     mix.version();
 }
 
+let proxy_url =  process.env.APP_URL;
+
 mix.browserSync({
-    proxy: 'movies.app'
-})
+    proxy: proxy_url
+});
 

@@ -4,7 +4,7 @@
     <div class="container mx-auto px-4 pt-16">
 
         <div class="popular-movies pb-4">
-            <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
+            <h2 class="home-title">
                 {{ __('Popular Movies') }}
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
@@ -15,7 +15,7 @@
         </div>
 
         <div class="now-playing-movies py-4 border-t">
-            <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
+            <h2 class="home-title">
                 {{ __('Now Playing Movies') }}
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
@@ -26,4 +26,8 @@
         </div>
 
     </div>
+@endsection
+
+@section('custom-scripts')
+    <script src="http://afarkas.github.io/lazysizes/lazysizes.min.js"></script>
 @endsection
