@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\ViewModels\MoviesViewModel;
-use App\ViewModels\MovieViewModel;
+use Illuminate\Http\Request;
+use App\ViewModels\TvViewModel;
+use App\ViewModels\TvShowViewModel;
 use Illuminate\Support\Facades\Http;
 
-class MoviesController extends Controller
+class TvController extends Controller
 {
     protected $page;
     protected $region;
@@ -27,28 +28,28 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        $popularMovies = Http::withToken($this->token)
-            ->get('https://api.themoviedb.org/3/movie/popular?language=' . config('app.locale') . '&page=' . $this->page . '&region=' . $this->region)
+        $popularTv = Http::withToken($this->token)
+            ->get('https://api.themoviedb.org/3/tv/popular?language=' . config('app.locale') . '&page=' . $this->page)
             ->throw()
             ->json()['results'];
 
-        $nowPlayingMovies = Http::withToken($this->token)
-            ->get('https://api.themoviedb.org/3/movie/now_playing?language=' . config('app.locale') . '&page=' . $this->page . '&region=' . $this->region)
+        $topRatedTv = Http::withToken($this->token)
+            ->get('https://api.themoviedb.org/3/tv/top_rated?language=' . config('app.locale') . '&page=' . $this->page)
             ->throw()
             ->json()['results'];
 
         $genres = Http::withToken($this->token)
-            ->get('https://api.themoviedb.org/3/genre/movie/list?language=' . config('app.locale'))
+            ->get('https://api.themoviedb.org/3/genre/tv/list?language=' . config('app.locale'))
             ->throw()
             ->json()['genres'];
 
-        $viewModel = new MoviesViewModel(
-            $popularMovies,
-            $nowPlayingMovies,
-            $genres
+        $viewModel = new TvViewModel(
+            $popularTv,
+            $topRatedTv,
+            $genres,
         );
 
-        return view('movies.index', $viewModel);
+        return view('tv.index', $viewModel);
     }
 
     /**
@@ -60,19 +61,23 @@ class MoviesController extends Controller
      */
     public function show($id)
     {
-        $movie = Http::withToken(config('services.tmdb.token'))
-            ->get('https://api.themoviedb.org/3/movie/'
+        $tvshow = Http::withToken($this->token)
+            ->get('https://api.themoviedb.org/3/tv/'
                 . $id
                 . '?language=' . config('app.locale')
-                . '&append_to_response=videos,credits,images'
+                . '&append_to_response=credits,videos,images'
                 . '&include_image_language=en,null,' . config('app.locale')
             )
+
+//                .$id.'?append_to_response=credits,videos,images')
+//                https://api.themoviedb.org/3/movie/157336/videos?api_key={api_key}
+
             ->throw()
             ->json();
 
-        $viewModel = new MovieViewModel($movie);
+        $viewModel = new TvShowViewModel($tvshow);
 
-        return view('movies.show', $viewModel);
+        return view('tv.show', $viewModel);
     }
 
 }

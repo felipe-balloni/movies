@@ -21,7 +21,9 @@ class ActorsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param int $page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function index($page = 1)
     {
@@ -29,6 +31,7 @@ class ActorsController extends Controller
 
         $popularActors = Http::withToken($this->token)
             ->get('https://api.themoviedb.org/3/person/popular?language=' . config('app.locale') . '&page=' . $page)
+            ->throw()
             ->json()['results'];
 
         $viewModel = new ActorsViewModel($popularActors, $page);
@@ -39,8 +42,9 @@ class ActorsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function show($id)
     {
@@ -49,14 +53,17 @@ class ActorsController extends Controller
 
         $actor = Http::withToken($this->token)
             ->get('https://api.themoviedb.org/3/person/' . $id . '?language=' . config('app.locale'))
+            ->throw()
             ->json();
 
         $social = Http::withToken($this->token)
             ->get('https://api.themoviedb.org/3/person/' . $id . '/external_ids?language=' . config('app.locale'))
+            ->throw()
             ->json();
 
         $credits = Http::withToken($this->token)
             ->get('https://api.themoviedb.org/3/person/' . $id . '/combined_credits?language=' . config('app.locale'))
+            ->throw()
             ->json();
 
         $viewModel = new ActorViewModel($actor, $social, $credits);

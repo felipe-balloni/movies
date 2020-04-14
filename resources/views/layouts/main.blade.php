@@ -72,7 +72,7 @@
                     <a href="{{ route('movies.index') }}" class="hover:text-gray-300">{{ __('Movies') }}</a>
                 </li>
                 <li class="md:ml-6 mt-3 md:mt-0">
-                    <a href="#" class="hover:text-gray-300">{{ __('TV shows') }}</a>
+                    <a href="{{ route('tv.index') }}" class="hover:text-gray-300">{{ __('TV shows') }}</a>
                 </li>
                 <li class="md:ml-6 mt-3 md:mt-0">
                     <a href="{{ route('actors.index') }}" class="hover:text-gray-300">{{ __('Actors') }}</a>

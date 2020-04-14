@@ -1,6 +1,6 @@
 <div class="mt-8">
     <a href="{{ route('movies.show', $movie['id'] ) }}">
-            <img alt="poster" class="movies-image lazyload"
+            <img alt="poster" class="std-image lazyload"
                  src="{{ $movie['poster_path'] }}">
     </a>
     <a href="{{ route('movies.show', $movie['id'] ) }}">{{ $movie['title'] }}</a>

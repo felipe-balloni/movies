@@ -8,7 +8,7 @@
                 @foreach ($popularActors as $actor)
                     <div class="actor mt-8">
                         <a href="{{ route('actors.show', $actor['id']) }}">
-                            <img src="{{ $actor['profile_path'] }}" alt="profile image" class="movies-image">
+                            <img src="{{ $actor['profile_path'] }}" alt="profile image" class="std-image lazyload">
                         </a>
                         <div class="mt-2">
                             <a href="{{ route('actors.show', $actor['id']) }}" class="text-lg hover:text-gray-300">{{ $actor['name'] }}</a>
