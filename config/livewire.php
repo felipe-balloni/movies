@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'asset_url'  => env('LIVEWIRE_ASSETES_URL', ''),
+    'asset_url'  => env('LIVEWIRE_ASSETS_URL', ''),
 
     /*
     |--------------------------------------------------------------------------

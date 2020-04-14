@@ -9,19 +9,19 @@
 
 /* purgecss start ignore */
 @tailwind  base;
-@tailwind  components;
 
 a {
     @apply text-lg mt-2;
 }
 
 a:hover {
-  @apply text-gray-500;
+    @apply text-gray-500;
 }
 
 h2 {
     @apply text-3xl font-semibold;
 }
+@tailwind  components;
 
 .spinner {
     position: absolute;

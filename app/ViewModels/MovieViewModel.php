@@ -25,16 +25,14 @@ class MovieViewModel extends ViewModel
             'vote_average' => $this->movie['vote_average'] * 10 . '%',
             'release_date' => Carbon::parse($this->movie['release_date'])->format('M d, Y'),
             'genres' => collect($this->movie['genres'])->pluck('name')->flatten()->implode(', '),
-            'crew' => collect($this->movie['credits']['crew'])
-                ->filter(function ($crew) {
-                    return $crew['job'] == 'Director' or $crew['job'] == 'Screenplay';
-                })
-                ->sortBy('job'),
+            'crew' => collect($this->movie['credits']['crew'])->filter(function ($crew) {
+                return $crew['job'] == 'Director' or $crew['job'] == 'Screenplay';
+            })->sortBy('job'),
             'cast' => collect($this->movie['credits']['cast'])->take(10)->map(function ($cast) {
                 return collect($cast)->merge([
                     'profile_path' => $cast['profile_path']
                         ? 'https://image.tmdb.org/t/p/w300' . $cast['profile_path']
-                        : 'https://via.placeholder.com/300x450',
+                        : 'https://via.placeholder.com/300x450?text=' . __('No image'),
                 ]);
             }),
             'images' => collect($this->movie['images']['backdrops'])->take(9),

@@ -28,6 +28,3 @@
     </div>
 @endsection
 
-@section('custom-scripts')
-    <script src="http://afarkas.github.io/lazysizes/lazysizes.min.js"></script>
-@endsection
